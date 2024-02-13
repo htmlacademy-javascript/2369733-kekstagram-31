@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Игорь Щербаков](https://up.htmlacademy.ru/javascript/31/user/2369733).
-* Наставник: [Дмитрий Беллавин](https://htmlacademy.ru/profile/bellavin).
+* Студент: [Игорь Щербаков](https://up.htmlacademy.ru/javascript/31/user/2369733)
+* Наставник: [Дмитрий Беллавин](https://htmlacademy.ru/profile/bellavin)
 
 ---
 
