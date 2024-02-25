@@ -1,4 +1,4 @@
-const OBJECT_COUNT = 40;
+const OBJECT_COUNT = 25;
 const NAMES = [
   'Иван',
   'Хуан Себастьян',
@@ -71,7 +71,7 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const generatePhotoId = createRandomIdFromRangeGenerator(1, OBJECT_COUNT);
+const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
 const generateId = createRandomIdFromRangeGenerator(1, OBJECT_COUNT);
 const commentGenerateId = createRandomIdFromRangeGenerator(1, 9999);
 
@@ -96,5 +96,7 @@ const photoDescription = () => ({
 const similarWizards = () => Array.from({
   length: OBJECT_COUNT
 }, photoDescription);
+
+// console.log(similarWizards());
 
 similarWizards();
