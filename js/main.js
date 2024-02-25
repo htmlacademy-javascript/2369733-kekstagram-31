@@ -97,6 +97,5 @@ const similarWizards = () => Array.from({
   length: OBJECT_COUNT
 }, photoDescription);
 
-// console.log(similarWizards());
-
+// console.table(similarWizards());
 similarWizards();
