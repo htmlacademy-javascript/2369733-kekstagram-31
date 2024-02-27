@@ -1,17 +1,17 @@
 const OBJECT_COUNT = 25;
 const fixedValuesFromTo = {
-  minPhotoId: 1,
-  maxPhotoId: 25,
-  minId: 1,
-  maxId: 25,
-  minCommentId: 1,
-  maxCommentId: 9999,
-  minAvatar: 1,
-  maxAvatar: 6,
-  minLikes: 15,
-  maxLikes: 200,
-  minComments: 0,
-  maxComments: 30
+  MIN_PHOTOID: 1,
+  MAX_PHOTOID: 25,
+  MIN_ID: 1,
+  MAX_ID: 25,
+  MIN_COMMENTID: 1,
+  MAX_COMMENTID: 9999,
+  MIN_AVATAR: 1,
+  MAX_AVATAR: 6,
+  MIN_LIKES: 15,
+  MAX_LIKES: 200,
+  MIN_COMMENTS: 0,
+  MAX_COMMENTS: 30
 };
 
 const NAMES = [
@@ -83,13 +83,13 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const GeneratePhotoId = createRandomIdFromRangeGenerator(fixedValuesFromTo.minPhotoId, fixedValuesFromTo.maxPhotoId);
-const GenerateId = createRandomIdFromRangeGenerator(fixedValuesFromTo.minId, fixedValuesFromTo.maxId);
-const GenerateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.minCommentId, fixedValuesFromTo.maxCommentId);
+const GeneratePhotoId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_PHOTOID, fixedValuesFromTo.MAX_PHOTOID);
+const GenerateId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_ID, fixedValuesFromTo.MAX_ID);
+const GenerateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
 
 const commentInformation = () => ({
   id: GenerateCommentId(),
-  url: `img/avatar-${getRandomInteger(fixedValuesFromTo.minAvatar, fixedValuesFromTo.maxAvatar)}.svg`,
+  url: `img/avatar-${getRandomInteger(fixedValuesFromTo.MIN_AVATAR, fixedValuesFromTo.MAX_AVATAR)}.svg`,
   message: MASSAGE[getRandomInteger(0, MASSAGE.length - 1)],
   name: `${NAMES[getRandomInteger(0, NAMES.length - 1)] } ${ SURNAMES[getRandomInteger(0, SURNAMES.length - 1)]}`
 });
@@ -98,9 +98,9 @@ const photoDescription = () => ({
   id: GenerateId(),
   url: `photos/${GeneratePhotoId()}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(fixedValuesFromTo.minLikes, fixedValuesFromTo.maxLikes),
+  likes: getRandomInteger(fixedValuesFromTo.MIN_LIKES, fixedValuesFromTo.MAX_LIKES),
   comments: Array.from({
-    length: getRandomInteger(fixedValuesFromTo.minComments, fixedValuesFromTo.maxComments)
+    length: getRandomInteger(fixedValuesFromTo.MIN_COMMENTS, fixedValuesFromTo.MAX_COMMENTS)
   }, commentInformation)
 });
 
@@ -110,4 +110,6 @@ const generatedObjectArrays = () => Array.from({
 }, photoDescription);
 
 generatedObjectArrays();
+
+console.log(generatedObjectArrays());
 
