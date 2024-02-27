@@ -110,6 +110,3 @@ const generatedObjectArrays = () => Array.from({
 }, photoDescription);
 
 generatedObjectArrays();
-
-console.log(generatedObjectArrays());
-
