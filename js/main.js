@@ -1,9 +1,5 @@
 const OBJECT_COUNT = 25;
 const fixedValuesFromTo = {
-  MIN_PHOTOID: 1,
-  MAX_PHOTOID: 25,
-  MIN_ID: 1,
-  MAX_ID: 25,
   MIN_COMMENTID: 1,
   MAX_COMMENTID: 9999,
   MIN_AVATAR: 1,
@@ -59,6 +55,17 @@ const DESCRIPTIONS = [
   'Любовь переносит все'
 ];
 
+const makeCounter = () => {
+  let currentCount = 1;
+
+  return function() {
+    return currentCount++;
+  };
+};
+
+const Id = makeCounter();
+const Photoid = makeCounter();
+
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -83,8 +90,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const GeneratePhotoId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_PHOTOID, fixedValuesFromTo.MAX_PHOTOID);
-const GenerateId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_ID, fixedValuesFromTo.MAX_ID);
 const GenerateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
 
 const commentInformation = () => ({
@@ -95,8 +100,8 @@ const commentInformation = () => ({
 });
 
 const photoDescription = () => ({
-  id: GenerateId(),
-  url: `photos/${GeneratePhotoId()}.jpg`,
+  id: Id(),
+  url: `photos/${Photoid()}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(fixedValuesFromTo.MIN_LIKES, fixedValuesFromTo.MAX_LIKES),
   comments: Array.from({
@@ -108,5 +113,6 @@ const photoDescription = () => ({
 const generatedObjectArrays = () => Array.from({
   length: OBJECT_COUNT
 }, photoDescription);
+
 
 generatedObjectArrays();
