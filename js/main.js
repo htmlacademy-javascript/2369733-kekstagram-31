@@ -30,7 +30,7 @@ const SURNAMES = [
   'Нионго',
   'Ирвинг',
 ];
-const MASSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -90,12 +90,12 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const GenerateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
+const generateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
 
 const commentInformation = () => ({
-  id: GenerateCommentId(),
+  id: generateCommentId(),
   url: `img/avatar-${getRandomInteger(fixedValuesFromTo.MIN_AVATAR, fixedValuesFromTo.MAX_AVATAR)}.svg`,
-  message: MASSAGE[getRandomInteger(0, MASSAGE.length - 1)],
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
   name: `${NAMES[getRandomInteger(0, NAMES.length - 1)] } ${ SURNAMES[getRandomInteger(0, SURNAMES.length - 1)]}`
 });
 
