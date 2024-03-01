@@ -1,6 +1,14 @@
-import {getRandomInteger} from './get-random-integer.js';
-import {generateCommentId} from './create-random-Id-generator.js';
-import {Id, Photoid} from './make-counter.js';
+import {
+  getRandomInteger
+} from './get-random-integer.js';
+import {
+  createRandomIdFromRangeGenerator
+} from './create-random-Id-generator.js';
+import {
+  Id,
+  Photoid
+} from './make-counter.js';
+
 
 const OBJECT_COUNT = 25;
 const fixedValuesFromTo = {
@@ -13,6 +21,8 @@ const fixedValuesFromTo = {
   MIN_COMMENTS: 0,
   MAX_COMMENTS: 30
 };
+
+const generateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
 
 const NAMES = [
   'Иван',
@@ -81,5 +91,6 @@ const generatedObjectArrays = () => Array.from({
   length: OBJECT_COUNT
 }, photoDescription);
 
-export {fixedValuesFromTo};
-export {generatedObjectArrays};
+export {
+  generatedObjectArrays
+};

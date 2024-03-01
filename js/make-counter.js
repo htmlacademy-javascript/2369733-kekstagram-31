@@ -1,7 +1,7 @@
 const makeCounter = () => {
   let currentCount = 1;
 
-  return function() {
+  return function () {
     return currentCount++;
   };
 };
@@ -9,4 +9,7 @@ const makeCounter = () => {
 const Id = makeCounter();
 const Photoid = makeCounter();
 
-export {Id, Photoid};
+export {
+  Id,
+  Photoid
+};

@@ -8,4 +8,6 @@ const testPolyndrome = (string = '') => {
   return string === reversal;
 };
 
-export {testPolyndrome};
+export {
+  testPolyndrome
+};

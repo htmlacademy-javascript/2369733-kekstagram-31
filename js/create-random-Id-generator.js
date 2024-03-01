@@ -1,5 +1,6 @@
-import {getRandomInteger} from './get-random-integer';
-import {fixedValuesFromTo} from './generated-object';
+import {
+  getRandomInteger
+} from './get-random-integer';
 
 const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
@@ -17,5 +18,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const generateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
-export {generateCommentId};
+export {
+  createRandomIdFromRangeGenerator
+};
