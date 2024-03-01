@@ -12,7 +12,7 @@ import {
 } from './test-polyndrome';
 
 
-// console.log(checkStringLength('проверяемая строка', 20));
-// console.log(extractNumber('извлекает содержащиеся в ней цифры от 0 до 9'));
-// console.log(testPolyndrome('Лёша на полке клопа нашёл '));
-// console.table(generatedObjectArrays());
+checkStringLength('проверяемая строка', 20);
+extractNumber('извлекает содержащиеся в ней цифры от 0 до 9');
+testPolyndrome('Лёша на полке клопа нашёл ');
+generatedObjectArrays();
