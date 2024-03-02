@@ -5,11 +5,11 @@ import {
   createRandomIdFromRangeGenerator
 } from './create-random-Id-generator.js';
 import {
-  Id,
-  Photoid
+  makeCounter
 } from './make-counter.js';
 
-
+const Id = makeCounter();
+const Photoid = makeCounter();
 const OBJECT_COUNT = 25;
 const fixedValuesFromTo = {
   MIN_COMMENTID: 1,
@@ -23,6 +23,7 @@ const fixedValuesFromTo = {
 };
 
 const generateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
+
 
 const NAMES = [
   'Иван',

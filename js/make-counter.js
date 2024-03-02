@@ -6,10 +6,6 @@ const makeCounter = () => {
   };
 };
 
-const Id = makeCounter();
-const Photoid = makeCounter();
-
 export {
-  Id,
-  Photoid
+  makeCounter
 };
