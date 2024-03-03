@@ -8,21 +8,27 @@ import {
   makeCounter
 } from './make-counter.js';
 
-const Id = makeCounter();
-const Photoid = makeCounter();
+const createId = makeCounter();
+const createPhotoid = makeCounter();
 const OBJECT_COUNT = 25;
-const fixedValuesFromTo = {
-  MIN_COMMENTID: 1,
-  MAX_COMMENTID: 9999,
-  MIN_AVATAR: 1,
-  MAX_AVATAR: 6,
-  MIN_LIKES: 15,
-  MAX_LIKES: 200,
-  MIN_COMMENTS: 0,
-  MAX_COMMENTS: 30
+const COMMENTS_ID = {
+  min: 1,
+  max: 9999,
+};
+const AVATARS = {
+  min: 1,
+  max: 6,
+};
+const LIKES = {
+  min: 15,
+  max: 200,
+};
+const COMMENTS = {
+  min: 0,
+  max: 30,
 };
 
-const generateCommentId = createRandomIdFromRangeGenerator(fixedValuesFromTo.MIN_COMMENTID, fixedValuesFromTo.MAX_COMMENTID);
+const generateCommentId = createRandomIdFromRangeGenerator(COMMENTS_ID.min, COMMENTS_ID.max);
 
 
 const NAMES = [
@@ -72,18 +78,18 @@ const DESCRIPTIONS = [
 
 const commentInformation = () => ({
   id: generateCommentId(),
-  url: `img/avatar-${getRandomInteger(fixedValuesFromTo.MIN_AVATAR, fixedValuesFromTo.MAX_AVATAR)}.svg`,
+  url: `img/avatar-${getRandomInteger(AVATARS.min, AVATARS.max)}.svg`,
   message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
   name: `${NAMES[getRandomInteger(0, NAMES.length - 1)] } ${ SURNAMES[getRandomInteger(0, SURNAMES.length - 1)]}`
 });
 
 const photoDescription = () => ({
-  id: Id(),
-  url: `photos/${Photoid()}.jpg`,
+  id: createId(),
+  url: `photos/${createPhotoid()}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(fixedValuesFromTo.MIN_LIKES, fixedValuesFromTo.MAX_LIKES),
+  likes: getRandomInteger(LIKES.min, LIKES.min),
   comments: Array.from({
-    length: getRandomInteger(fixedValuesFromTo.MIN_COMMENTS, fixedValuesFromTo.MAX_COMMENTS)
+    length: getRandomInteger(COMMENTS.min, COMMENTS.max)
   }, commentInformation)
 });
 
