@@ -1,5 +1,9 @@
 import {
   generatedObjectArrays
-} from './utils/generated-object';
+} from './utils/generated-object.js';
 
-generatedObjectArrays();
+import {
+  renderPictures
+} from './utils/render-pictures.js';
+
+renderPictures(generatedObjectArrays());
