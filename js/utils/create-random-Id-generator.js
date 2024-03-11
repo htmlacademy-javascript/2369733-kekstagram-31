@@ -1,6 +1,6 @@
 import {
   getRandomInteger
-} from './get-random-integer';
+} from './get-random-integer.js';
 
 const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];

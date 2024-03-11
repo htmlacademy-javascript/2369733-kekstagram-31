@@ -1,12 +1,12 @@
 import {
   getRandomInteger
-} from './get-random-integer.js';
+} from '../utils/get-random-integer.js';
 import {
   createRandomIdFromRangeGenerator
-} from './create-random-Id-generator.js';
+} from '../utils/create-random-Id-generator.js';
 import {
   makeCounter
-} from './make-counter.js';
+} from '../utils/make-counter.js';
 
 const createId = makeCounter();
 const createPhotoid = makeCounter();
