@@ -10,9 +10,9 @@ const createComment = ({ url, name, message }) => {
   comment.innerHTML =
     '<img class="social__picture" src="" alt="" width="35" height="35"><p class="social__text"></p>';
   comment.classList.add('social__comment');
-
-  comment.querySelector('.social__picture').src = url;
-  comment.querySelector('.social__picture').alt = name;
+  const image = comment.querySelector('.social__picture');
+  image.src = url;
+  image.alt = name;
   comment.querySelector('.social__text').textContent = message;
 
   return comment;
@@ -48,8 +48,9 @@ const onCancelButtonClick = () => {
 };
 
 const renderPictureDetails = ({ url, likes, description }) => {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.big-picture__img img').alt = description;
+  const img = bigPicture.querySelector('.big-picture__img img');
+  img.src = url;
+  img.alt = description;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
 };

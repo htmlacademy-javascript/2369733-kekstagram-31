@@ -8,9 +8,9 @@ const container = document.querySelector('.pictures');
 const createPicture = (data) => {
   const { comments, description, likes, url } = data;
   const picture = pictureTemplate.cloneNode(true);
-
-  picture.querySelector('.picture__img').src = url;
-  picture.querySelector('.picture__img').alt = description;
+  const img = picture.querySelector('.picture__img');
+  img.src = url;
+  img.alt = description;
   picture.querySelector('.picture__comments').textContent = comments.length;
   picture.querySelector('.picture__likes').textContent = likes;
 
