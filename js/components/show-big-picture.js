@@ -1,9 +1,9 @@
-const bigPicture = document.querySelector('.big-picture');
-const commentCount = document.querySelector('.social__comment-count');
-const commentList = document.querySelector('.social__comments');
-const commentsLoader = document.querySelector('.comments-loader');
 const body = document.querySelector('body');
-const cancelButton = document.querySelector('.big-picture__cancel');
+const bigPicture = document.querySelector('.big-picture');
+const commentCount = bigPicture.querySelector('.social__comment-count');
+const commentList = bigPicture.querySelector('.social__comments');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
+const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
 const createComment = ({ url, name, message }) => {
   const comment = document.createElement('li');

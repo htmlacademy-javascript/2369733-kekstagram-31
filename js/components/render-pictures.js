@@ -1,18 +1,21 @@
 import { showBigPicture } from './show-big-picture';
 
-const pictureTemplate = document
-  .querySelector('#picture')
+const pictureTemplate = document.querySelector('#picture')
   .content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
 const createPicture = (data) => {
   const { comments, description, likes, url } = data;
+
   const picture = pictureTemplate.cloneNode(true);
   const img = picture.querySelector('.picture__img');
+  const pictureComment = picture.querySelector('.picture__comments');
+  const pictureLikes = picture.querySelector('.picture__likes');
+
   img.src = url;
   img.alt = description;
-  picture.querySelector('.picture__comments').textContent = comments.length;
-  picture.querySelector('.picture__likes').textContent = likes;
+  pictureComment.textContent = comments.length;
+  pictureLikes.textContent = likes;
 
   picture.addEventListener('click', () => {
     showBigPicture(data);
