@@ -52,5 +52,5 @@ const showBigPicture = ({
 cancelButton.addEventListener('click', onCancelButtonClick);
 
 export {
-  showBigPicture, bigPicture
+  showBigPicture
 };
