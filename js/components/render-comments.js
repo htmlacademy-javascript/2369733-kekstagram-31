@@ -19,8 +19,14 @@ const createComment = ({
 
 const renderComments = (comments) => {
   const commentList = bigPicture.querySelector('.social__comments');
+  const commentsLoader = bigPicture.querySelector('.comments-loader');
+  const commentShowCount = bigPicture.querySelector('.social__comment-shown-count');
+  let commentsShown = 0;
+
   const template = commentList.children[0];
   const fragment = document.createDocumentFragment();
+
+ 
 
   comments.forEach((comment) => {
     const commentElement = createComment(comment, template);
