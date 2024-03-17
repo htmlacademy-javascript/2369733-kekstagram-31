@@ -1,6 +1,5 @@
 const body = document.body;
 const bigPicture = body.querySelector('.big-picture');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
 
@@ -51,8 +50,6 @@ const onCancelButtonClick = () => {
   hideBigPicture();
 };
 
-const onCommentsLoaderClick = () => renderComments();
-
 const showBigPicture = ({ url, likes, description, comments }) => {
   const img = bigPicture.querySelector('.big-picture__img img');
   const likesCount = bigPicture.querySelector('.likes-count');
@@ -72,6 +69,5 @@ const showBigPicture = ({ url, likes, description, comments }) => {
 };
 
 cancelButton.addEventListener('click', onCancelButtonClick);
-commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
 export { showBigPicture };
