@@ -1,11 +1,11 @@
-import { showBigPicture } from './show-big-picture';
+import { showBigPicture} from './show-big-picture';
 
 const pictureTemplate = document.querySelector('#picture')
   .content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
 const createPicture = (data) => {
-  const { comments, description, likes, url } = data;
+  const {url , description, comments, likes, } = data;
 
   const picture = pictureTemplate.cloneNode(true);
   const img = picture.querySelector('.picture__img');
