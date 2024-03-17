@@ -78,7 +78,7 @@ const DESCRIPTIONS = [
 
 const commentInformation = () => ({
   id: generateCommentId(),
-  url: `img/avatar-${getRandomInteger(AVATARS.min, AVATARS.max)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(AVATARS.min, AVATARS.max)}.svg`,
   message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
   name: `${NAMES[getRandomInteger(0, NAMES.length - 1)] } ${ SURNAMES[getRandomInteger(0, SURNAMES.length - 1)]}`
 });
