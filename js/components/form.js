@@ -1,3 +1,6 @@
+import { resetScale } from './scale-image .js';
+import { resetEffects } from './photo-filters.js';
+
 const body = document.querySelector('body');
 const form = body.querySelector('.img-upload__form');
 const overlay = form.querySelector('.img-upload__overlay');
@@ -31,6 +34,8 @@ const showModal = () => {
 
 const hideModal = () => {
   form.reset();
+  resetScale();
+  resetEffects();
   pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -105,7 +110,6 @@ pristine.addValidator(
   hashtagField,
   hasValidLength,
   `'минимум  ${HASHTAG_LENGTH.min} символов, максимум ${HASHTAG_LENGTH.max} символов'`
-  // #1 #2 #3 #4 #5
 );
 
 pristine.addValidator(
@@ -121,7 +125,7 @@ const onFormSubmit = (evt) => {
   }
 };
 
-
+form.addEventListener('submit', onFormSubmit);
 fileField.addEventListener('change', onFileInputChange,);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
