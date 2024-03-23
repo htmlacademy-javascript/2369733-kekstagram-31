@@ -1,4 +1,3 @@
-
 const body = document.querySelector('body');
 const form = body.querySelector('.img-upload__form');
 const overlay = form.querySelector('.img-upload__overlay');
@@ -92,6 +91,24 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
+  hashtagField,
+  hasValidSymbols,
+  'хэштеги повторяются'
+);
+
+pristine.addValidator(
+  hashtagField,
+  startsWithHash,
+  'хэштег начинается с символа #'
+);
+pristine.addValidator(
+  hashtagField,
+  hasValidLength,
+  `'минимум  ${HASHTAG_LENGTH.min} символов, максимум ${HASHTAG_LENGTH.max} символов'`
+  // #1 #2 #3 #4 #5
+);
+
+pristine.addValidator(
   commentField,
   hascommentLength,
   'Максимум 140 символов'
@@ -99,11 +116,12 @@ pristine.addValidator(
 
 
 const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
 };
 
 
-fileField.addEventListener('change', onFileInputChange);
+fileField.addEventListener('change', onFileInputChange,);
 cancelButton.addEventListener('click', onCancelButtonClick);
 form.addEventListener('submit', onFormSubmit);
