@@ -15,10 +15,12 @@ const uploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const uploadFile = imgUpload.querySelector('#upload-file');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
 const inputHashtag = imgUpload.querySelector('.text__hashtags');
+const textDescription = imgUpload.querySelector('.text__description');
+
 let errorMessage = '';
 
 const pristine = new Pristine(imgUploadForm, {
-  classTo: 'img-upload__form',
+  classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
@@ -78,10 +80,10 @@ const isHashtagsValid = (value) => {
   });
 };
 
-
 const hascommentLength = (value) => value.length <= characterComment;
+
 pristine.addValidator(
-  inputHashtag,
+  textDescription,
   hascommentLength,
   'Максимум 140 символов'
 );
