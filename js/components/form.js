@@ -7,6 +7,7 @@ import {
 
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
+const characterComment = 140;
 
 const imgUpload = document.querySelector('.img-upload');
 const imgUploadForm = document.querySelector('.img-upload__form');
@@ -14,7 +15,6 @@ const uploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const uploadFile = imgUpload.querySelector('#upload-file');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
 const inputHashtag = imgUpload.querySelector('.text__hashtags');
-
 let errorMessage = '';
 
 const pristine = new Pristine(imgUploadForm, {
@@ -77,6 +77,14 @@ const isHashtagsValid = (value) => {
     return !isInvalid;
   });
 };
+
+
+const hascommentLength = (value) => value.length <= characterComment;
+pristine.addValidator(
+  inputHashtag,
+  hascommentLength,
+  'Максимум 140 символов'
+);
 
 pristine.addValidator(inputHashtag, isHashtagsValid, error, 2, false);
 
