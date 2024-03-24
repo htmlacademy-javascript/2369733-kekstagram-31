@@ -1,4 +1,7 @@
 import { renderComments} from './render-comments.js';
+import {
+  isEscKeyDown
+} from '../utils/is-esc-key-down.js';
 
 const body = document.body;
 const bigPicture = body.querySelector('.big-picture');
@@ -13,10 +16,10 @@ const hideBigPicture = () => {
 };
 
 function onEscKeyDown(evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideBigPicture();
-  }
+  isEscKeyDown(evt);
+  evt.preventDefault();
+  hideBigPicture();
+
 }
 
 const onCancelButtonClick = () => {
