@@ -6,12 +6,16 @@ import {
 const body = document.body;
 const bigPicture = body.querySelector('.big-picture');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const hideBigPicture = () => {
+  const button = bigPicture.querySelector('.comments-loader');
+
+  button.replaceWith(button.cloneNode(true));
+
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  commentsLoader.classList.remove('hidden');
+  button.classList.remove('hidden');
+
   document.removeEventListener('keydown', onEscKeyDown);
 };
 
@@ -19,7 +23,6 @@ function onEscKeyDown(evt) {
   isEscKeyDown(evt);
   evt.preventDefault();
   hideBigPicture();
-
 }
 
 const onCancelButtonClick = () => {
