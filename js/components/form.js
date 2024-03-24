@@ -4,6 +4,7 @@ import {
 import {
   numDecline
 } from '../utils/num-decline.js';
+import { resetScale } from './scale-image .js';
 
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
@@ -104,6 +105,7 @@ function onEscapeKeydown(evt) {
   ) {
     evt.preventDefault();
     onImgUploadClose();
+    resetScale();
   }
 }
 
