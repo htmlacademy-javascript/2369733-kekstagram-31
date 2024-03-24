@@ -128,4 +128,3 @@ const onFormSubmit = (evt) => {
 form.addEventListener('submit', onFormSubmit);
 fileField.addEventListener('change', onFileInputChange,);
 cancelButton.addEventListener('click', onCancelButtonClick);
-
