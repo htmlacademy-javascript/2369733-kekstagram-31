@@ -10,12 +10,10 @@ const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 const hideBigPicture = () => {
   const button = bigPicture.querySelector('.comments-loader');
 
-  button.replaceWith(button.cloneNode(true));
-
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  button.classList.remove('hidden');
 
+  button.replaceWith(button.cloneNode(true));
   document.removeEventListener('keydown', onEscKeyDown);
 };
 
