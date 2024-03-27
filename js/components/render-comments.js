@@ -1,10 +1,10 @@
 const COMMENTS_PORTION = 5;
-
+let template = null;
 const createComment = ({
   avatar,
   name,
   message
-}, template) => {
+}) => {
 
   const comment = template.cloneNode(true);
   const image = comment.querySelector('.social__picture');
@@ -24,7 +24,7 @@ const renderComments = (comments, bigPicture) => {
   const commentShowCount = bigPicture.querySelector('.social__comment-shown-count');
   let commentsShown = 0;
 
-  const template = commentList.children[0];
+  template = template ?? commentList.children[0];
   commentList.innerHTML = '';
 
   const shownComments = () => {
