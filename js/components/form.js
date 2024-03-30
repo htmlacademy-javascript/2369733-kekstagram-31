@@ -126,14 +126,6 @@ const onSelectPhoto = () => {
   document.addEventListener('keydown', onEscapeKeydown);
 };
 
-const onSubmitForm = (evt) => {
-  evt.preventDefault();
-
-  if (pristine.validate()) {
-    inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
-    form.submit();
-  }
-};
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -148,9 +140,9 @@ const unblockSubmitButton = () => {
 const setOnFormSubmit = (cb) => {
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-    const isValid = pristine.onSubmitForm();
 
-    if (isValid) {
+    if (pristine.validate()) {
+      inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
       blockSubmitButton();
       await cb(new FormData(form));
       unblockSubmitButton();
@@ -158,10 +150,7 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
+uploadFile.addEventListener('change', onSelectPhoto);
 inputHashtag.addEventListener('input', onHashtagInput);
 
-uploadFile.addEventListener('change', onSelectPhoto);
-
-form.addEventListener('submit', onSubmitForm);
-
-export { setOnFormSubmit, hideModal };
+export {setOnFormSubmit, hideModal};
