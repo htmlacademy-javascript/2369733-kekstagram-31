@@ -1,11 +1,33 @@
 import {
-  generatedObjectArrays
-} from './data/generated-object.js';
-import {
   renderPictures
-} from './components/render-pictures.js';
-import './components/form.js';
-import './components/photo-filters.js';
-import './components/scale-image .js';
+} from './data/render-pictures.js';
+import {
+  getData,
+  sendData
+} from './components/api.js';
+import {
+  showAlert
+} from './utils/show-alert';
+import {
+  setOnFormSubmit,
+  hideModal
+} from './components/form.js';
+import {
+  showSuccessMessage,
+  showErrorMessage
+} from './components/message.js';
 
-renderPictures(generatedObjectArrays());
+const onSendDataSuccess = () => {
+  hideModal();
+  showSuccessMessage();
+};
+
+const onSendDataError = () => {
+  showErrorMessage();
+};
+
+setOnFormSubmit(async (data) => {
+  await sendData(onSendDataSuccess, onSendDataError, data);
+});
+
+getData(renderPictures, showAlert);

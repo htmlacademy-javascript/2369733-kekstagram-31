@@ -4,23 +4,25 @@ import {
 import {
   numDecline
 } from '../utils/num-decline.js';
-import { resetScale } from './scale-image .js';
+import { resetScale } from './scale-image.js';
+import { resetEffects } from './photo-filters.js';
 
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
 const characterComment = 140;
 
 const imgUpload = document.querySelector('.img-upload');
-const imgUploadForm = document.querySelector('.img-upload__form');
+const form = document.querySelector('.img-upload__form');
 const uploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const uploadFile = imgUpload.querySelector('#upload-file');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
 const inputHashtag = imgUpload.querySelector('.text__hashtags');
 const textDescription = imgUpload.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 
 let errorMessage = '';
 
-const pristine = new Pristine(imgUploadForm, {
+const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
@@ -91,10 +93,14 @@ pristine.addValidator(
 
 pristine.addValidator(inputHashtag, isHashtagsValid, error, 2, false);
 
-const onImgUploadClose = () => {
+const hideModal = () => {
   document.body.classList.remove('modal-open');
   uploadOverlay.classList.add('hidden');
-  imgUploadForm.reset();
+
+  form.reset();
+  resetScale();
+  resetEffects();
+
   document.removeEventListener('keydown', onEscapeKeydown);
 };
 
@@ -104,7 +110,7 @@ function onEscapeKeydown(evt) {
     && !evt.target.classList.contains('text__description')
   ) {
     evt.preventDefault();
-    onImgUploadClose();
+    hideModal();
     resetScale();
   }
 }
@@ -116,7 +122,7 @@ const onHashtagInput = () => {
 const onSelectPhoto = () => {
   document.body.classList.add('modal-open');
   uploadOverlay.classList.remove('hidden');
-  imgUploadCancel.addEventListener('click', onImgUploadClose);
+  imgUploadCancel.addEventListener('click', hideModal);
   document.addEventListener('keydown', onEscapeKeydown);
 };
 
@@ -125,12 +131,37 @@ const onSubmitForm = (evt) => {
 
   if (pristine.validate()) {
     inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
-    imgUploadForm.submit();
+    form.submit();
   }
+};
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправляю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setOnFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.onSubmitForm();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(form));
+      unblockSubmitButton();
+    }
+  });
 };
 
 inputHashtag.addEventListener('input', onHashtagInput);
 
 uploadFile.addEventListener('change', onSelectPhoto);
 
-imgUploadForm.addEventListener('submit', onSubmitForm);
+form.addEventListener('submit', onSubmitForm);
+
+export { setOnFormSubmit, hideModal };
