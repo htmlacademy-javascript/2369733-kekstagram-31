@@ -1,109 +1,136 @@
+import {
+  isEscKeyDown
+} from '../utils/is-esc-key-down.js';
+import {
+  numDecline
+} from '../utils/num-decline.js';
+import { resetScale } from './scale-image .js';
 
-const body = document.querySelector('body');
-const form = body.querySelector('.img-upload__form');
-const overlay = form.querySelector('.img-upload__overlay');
-const cancelButton = form.querySelector('#upload-cancel');
-const fileField = form.querySelector('#upload-file');
-const hashtagField = form.querySelector('.text__hashtags');
-const commentField = form.querySelector('.text__description');
-
-const MAX_HASHTAG_COUNT = 5;
-const HASHTAG_LENGTH = {
-  min: 2,
-  max: 20,
-};
+const MAX_HASHTAGS = 5;
+const MAX_SYMBOLS = 20;
 const characterComment = 140;
 
-const UNVALID_SYMBOLS = /[^a-zA-Z0-9а-яА-ЯёЁ]/g;
+const imgUpload = document.querySelector('.img-upload');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const uploadOverlay = imgUpload.querySelector('.img-upload__overlay');
+const uploadFile = imgUpload.querySelector('#upload-file');
+const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
+const inputHashtag = imgUpload.querySelector('.text__hashtags');
+const textDescription = imgUpload.querySelector('.text__description');
 
-const pristine = new Pristine(form, {
+let errorMessage = '';
+
+const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
-},
-false
-);
+});
 
-const showModal = () => {
-  overlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeyDown);
-};
+const error = () => errorMessage;
 
-const hideModal = () => {
-  form.reset();
-  pristine.reset();
-  overlay.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeyDown);
-};
+const isHashtagsValid = (value) => {
+  errorMessage = '';
 
-const isTextFieldFocused = () =>
-  document.activeElement === hashtagField ||
-  document.activeElement === commentField;
+  const inputText = value.toLowerCase().trim();
 
-function onEscKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
-    evt.preventDefault();
-    hideModal();
+  if (!inputText) {
+    return true;
   }
-}
 
-const onCancelButtonClick = () => {
-  hideModal();
-};
+  const inputArray = inputText.split(/\s+/);
 
-const onFileInputChange = () => {
-  showModal();
-};
+  const rules = [
+    {
+      check: inputArray.some((item) => item === '#'),
+      error: 'Хештег не может состоять только из одной решётки',
+    },
+    {
+      check: inputArray.some((item) => item.slice(1).includes('#')),
+      error: 'Хештеги разделяются пробелами',
+    },
+    {
+      check: inputArray.some((item) => item[0] !== '#'),
+      error: 'Хештег должен начинаться с символа \'#\'',
+    },
+    {
+      check: inputArray.some((item, num, array) => array.includes(item, num + 1)),
+      error: 'Хештеги не должны повторяться',
+    },
+    {
+      check: inputArray.some((item) => item.length > MAX_SYMBOLS),
+      error: `Максимальная длина одного хештега ${MAX_SYMBOLS} символов, включая решётку`,
+    },
+    {
+      check: inputArray.length > MAX_HASHTAGS,
+      error: `Нельзя указать больше ${MAX_HASHTAGS} ${numDecline(
+        MAX_HASHTAGS, 'хештега', 'хештегов', 'хештегов'
+      )}`,
+    },
+    {
+      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
+      error: 'Хештег содержит недопустимые символы',
+    },
+  ];
 
-const startsWithHash = (string) => string[0] === '#';
-
-const hasValidLength = (string) =>
-  string.length >= HASHTAG_LENGTH.min && string.length <= HASHTAG_LENGTH.max;
-
-const hasValidSymbols = (string) => !UNVALID_SYMBOLS.test(string.slice(1));
-
-const isValidTag = (tag) =>
-  startsWithHash(tag) && hasValidLength(tag) && hasValidSymbols(tag);
-
-const hasValidCount = (tags) => tags.length <= MAX_HASHTAG_COUNT;
-
-const hasUniqueTags = (tags) => {
-  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
-  return lowerCaseTags.length === new Set(lowerCaseTags).size;
-};
-
-const validateTags = (value) => {
-  const tags = value
-    .trim()
-    .split(' ')
-    .filter((tag) => tag.trim().length);
-  return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
+  return rules.every((rule) => {
+    const isInvalid = rule.check;
+    if (isInvalid) {
+      errorMessage = rule.error;
+    }
+    return !isInvalid;
+  });
 };
 
 const hascommentLength = (value) => value.length <= characterComment;
 
-
 pristine.addValidator(
-  hashtagField,
-  validateTags,
-  'Неправильно заполнены хэштеги'
-);
-
-pristine.addValidator(
-  commentField,
+  textDescription,
   hascommentLength,
   'Максимум 140 символов'
 );
 
+pristine.addValidator(inputHashtag, isHashtagsValid, error, 2, false);
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const onImgUploadClose = () => {
+  document.body.classList.remove('modal-open');
+  uploadOverlay.classList.add('hidden');
+  imgUploadForm.reset();
+  document.removeEventListener('keydown', onEscapeKeydown);
 };
 
+function onEscapeKeydown(evt) {
+  if (isEscKeyDown(evt)
+    && !evt.target.classList.contains('text__hashtags')
+    && !evt.target.classList.contains('text__description')
+  ) {
+    evt.preventDefault();
+    onImgUploadClose();
+    resetScale();
+  }
+}
 
-fileField.addEventListener('change', onFileInputChange);
-cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+const onHashtagInput = () => {
+  isHashtagsValid(inputHashtag.value);
+};
+
+const onSelectPhoto = () => {
+  document.body.classList.add('modal-open');
+  uploadOverlay.classList.remove('hidden');
+  imgUploadCancel.addEventListener('click', onImgUploadClose);
+  document.addEventListener('keydown', onEscapeKeydown);
+};
+
+const onSubmitForm = (evt) => {
+  evt.preventDefault();
+
+  if (pristine.validate()) {
+    inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
+    imgUploadForm.submit();
+  }
+};
+
+inputHashtag.addEventListener('input', onHashtagInput);
+
+uploadFile.addEventListener('change', onSelectPhoto);
+
+imgUploadForm.addEventListener('submit', onSubmitForm);
