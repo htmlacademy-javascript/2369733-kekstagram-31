@@ -17,6 +17,19 @@ import {
   showErrorMessage
 } from './components/message.js';
 
+import {
+  setOnFilterClick,
+  turnFilterOn,
+  filterPictures
+} from './components/filter.js';
+
+
+const onGetDataSuccess = (data) => {
+  turnFilterOn(data);
+  renderPictures(filterPictures());
+  setOnFilterClick(renderPictures);
+};
+
 const onSendDataSuccess = () => {
   hideModal();
   showSuccessMessage();
@@ -30,4 +43,4 @@ setOnFormSubmit(async (data) => {
   await sendData(onSendDataSuccess, onSendDataError, data);
 });
 
-getData(renderPictures, showAlert);
+getData(onGetDataSuccess, showAlert);
