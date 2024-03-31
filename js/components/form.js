@@ -10,6 +10,7 @@ import { resetEffects } from './photo-filters.js';
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
 const characterComment = 140;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const imgUpload = document.querySelector('.img-upload');
 const form = document.querySelector('.img-upload__form');
@@ -19,6 +20,8 @@ const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
 const inputHashtag = imgUpload.querySelector('.text__hashtags');
 const textDescription = imgUpload.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
+const photoPreview = document.querySelector('.img-upload__preview img');
+const effectsPreviews = document.querySelectorAll('.effects__preview');
 
 let errorMessage = '';
 
@@ -126,7 +129,6 @@ const onSelectPhoto = () => {
   document.addEventListener('keydown', onEscapeKeydown);
 };
 
-
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Отправляю...';
@@ -135,6 +137,23 @@ const blockSubmitButton = () => {
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
+};
+
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
+
+const onFileInputChange = () => {
+  const file = uploadFile.files[0];
+
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
+  onSelectPhoto();
 };
 
 const setOnFormSubmit = (cb) => {
@@ -150,7 +169,7 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
-uploadFile.addEventListener('change', onSelectPhoto);
+uploadFile.addEventListener('change', onFileInputChange);
 inputHashtag.addEventListener('input', onHashtagInput);
 
 export {setOnFormSubmit, hideModal};
