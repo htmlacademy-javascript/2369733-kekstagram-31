@@ -103,7 +103,7 @@ const hideModal = () => {
   form.reset();
   resetScale();
   resetEffects();
-
+  pristine.reset();
   document.removeEventListener('keydown', onEscapeKeydown);
 };
 

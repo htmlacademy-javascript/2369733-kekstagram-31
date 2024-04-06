@@ -1,10 +1,10 @@
 import {
   renderPictures
-} from './data/render-pictures.js';
+} from './components/render-pictures.js';
 import {
   getData,
   sendData
-} from './components/api.js';
+} from './data/api.js';
 import {
   showAlert
 } from './utils/show-alert';

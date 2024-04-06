@@ -30,6 +30,7 @@ const renderComments = (comments, bigPicture) => {
   const shownComments = () => {
     const startIndex = commentsShown * COMMENTS_PORTION;
     commentsShown++;
+
     const endIndex = Math.min(
       startIndex + COMMENTS_PORTION,
       comments.length
@@ -37,16 +38,12 @@ const renderComments = (comments, bigPicture) => {
 
     const slicedComments = comments.slice(startIndex, endIndex);
 
+    commentsLoader.classList.toggle('hidden', endIndex === comments.length);
+
     slicedComments.forEach((comment) => {
       commentList.append(createComment(comment, template));
     });
 
-    if (startIndex >= comments.length) {
-      commentsLoader.classList.add('hidden');
-      commentsShown = comments.length;
-    } else {
-      commentsLoader.classList.remove('hidden');
-    }
     commentShowCount.textContent = endIndex;
 
   };

@@ -8,8 +8,7 @@ const Filter = {
 };
 
 const filtersElement = document.querySelector('.img-filters');
-const picturesContainer = document.querySelector('.pictures');
-const picturesUploadForm = document.querySelector('.img-upload');
+
 
 let currentFilter = '';
 let pictures = [];
@@ -48,8 +47,6 @@ const setOnFilterClick = (cb) => {
     if (clickedButton.id === currentFilter) {
       return;
     }
-    picturesContainer.innerHTML = '';
-    picturesContainer.append(picturesUploadForm);
     filtersElement
       .querySelector('.img-filters__button--active')
       .classList.remove('img-filters__button--active');
