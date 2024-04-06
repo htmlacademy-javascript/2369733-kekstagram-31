@@ -1,4 +1,4 @@
-import { renderComments} from '../data/render-comments.js';
+import { renderComments} from './render-comments.js';
 import {
   isEscKeyDown
 } from '../utils/is-esc-key-down.js';
