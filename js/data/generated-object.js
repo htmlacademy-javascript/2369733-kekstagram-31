@@ -8,8 +8,6 @@ import {
   makeCounter
 } from '../utils/make-counter.js';
 
-const createId = makeCounter();
-const createPhotoid = makeCounter();
 const OBJECT_COUNT = 25;
 const COMMENTS_ID = {
   min: 1,
@@ -27,9 +25,6 @@ const COMMENTS = {
   min: 0,
   max: 30,
 };
-
-const generateCommentId = createRandomIdFromRangeGenerator(COMMENTS_ID.min, COMMENTS_ID.max);
-
 
 const NAMES = [
   'Иван',
@@ -75,6 +70,10 @@ const DESCRIPTIONS = [
   'Озаряй жизни',
   'Любовь переносит все'
 ];
+
+const createId = makeCounter();
+const createPhotoid = makeCounter();
+const generateCommentId = createRandomIdFromRangeGenerator(COMMENTS_ID.min, COMMENTS_ID.max);
 
 const commentInformation = () => ({
   id: generateCommentId(),

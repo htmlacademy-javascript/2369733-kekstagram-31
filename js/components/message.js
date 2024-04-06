@@ -10,17 +10,17 @@ const showSuccessMessage = () => {
   body.append(successMessage);
   body.addEventListener('keydown', onEscDown);
   body.addEventListener('click', onBodyClick);
-  successMessage.querySelector('.success__button').addEventListener('click', hideMessage);
+  successMessage.querySelector('.success__button').addEventListener('click', onSuccessMessageClick);
 };
 
 const showErrorMessage = () => {
   body.append(errorMessage);
   body.addEventListener('keydown', onEscDown);
   body.addEventListener('click', onBodyClick);
-  errorMessage.querySelector('.error__button').addEventListener('click', hideMessage);
+  errorMessage.querySelector('.error__button').addEventListener('click', onSuccessMessageClick);
 };
 
-function hideMessage() {
+function onSuccessMessageClick() {
   const messageElement = document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
   body.removeEventListener('keydown', onEscDown);
@@ -33,14 +33,14 @@ function onBodyClick(evt) {
   ) {
     return;
   }
-  hideMessage();
+  onSuccessMessageClick();
 }
 
 function onEscDown(evt) {
   if (isEscKeyDown(evt)) {
     evt.preventDefault();
     evt.stopPropagation();
-    hideMessage();
+    onSuccessMessageClick();
   }
 }
 

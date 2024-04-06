@@ -2,7 +2,7 @@ import {
   isEscKeyDown
 } from '../utils/is-esc-key-down.js';
 import {
-  numDecline
+  numberDecline
 } from '../utils/num-decline.js';
 import { resetScale } from './scale-image.js';
 import { resetEffects } from './photo-filters.js';
@@ -11,6 +11,7 @@ const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
 const characterComment = 140;
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const VALID_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const imgUpload = document.querySelector('.img-upload');
 const form = document.querySelector('.img-upload__form');
@@ -58,7 +59,7 @@ const isHashtagsValid = (value) => {
       error: 'Хештег должен начинаться с символа \'#\'',
     },
     {
-      check: inputArray.some((item, num, array) => array.includes(item, num + 1)),
+      check: inputArray.some((item, number, array) => array.includes(item, number + 1)),
       error: 'Хештеги не должны повторяться',
     },
     {
@@ -67,12 +68,12 @@ const isHashtagsValid = (value) => {
     },
     {
       check: inputArray.length > MAX_HASHTAGS,
-      error: `Нельзя указать больше ${MAX_HASHTAGS} ${numDecline(
+      error: `Нельзя указать больше ${MAX_HASHTAGS} ${numberDecline(
         MAX_HASHTAGS, 'хештега', 'хештегов', 'хештегов'
       )}`,
     },
     {
-      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
+      check: inputArray.some((item) => !VALID_SIMBOLS.test(item)),
       error: 'Хештег содержит недопустимые символы',
     },
   ];

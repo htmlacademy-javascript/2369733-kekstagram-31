@@ -1,12 +1,12 @@
-const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
-  const num1 = num % 10;
-  const num2 = num % 100;
+const numberDecline = (number, nominative, genitiveSingular, genitivePlural) => {
+  const number1 = number % 10;
+  const number2 = number % 100;
 
-  if (num2 === 11 || num2 === 12 || num2 === 13 || num2 === 14) {
+  if (number2 === 11 || number2 === 12 || number2 === 13 || number2 === 14) {
     return (genitivePlural);
-  } else if (num1 >= 2 && num1 <= 4) {
+  } else if (number1 >= 2 && number1 <= 4) {
     return (genitiveSingular);
-  } else if (num1 === 1) {
+  } else if (number1 === 1) {
     return (nominative);
   } else {
     return (genitivePlural);
@@ -14,5 +14,5 @@ const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
 };
 
 export {
-  numDecline
+  numberDecline
 };
