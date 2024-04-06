@@ -2,6 +2,7 @@ const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
   const alert = document.createElement('div');
+  alert.classList.add('data-error');
   alert.style.position = 'absolute';
   alert.style.zIndex = '100';
   alert.style.left = '0';
