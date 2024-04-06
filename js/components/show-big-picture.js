@@ -40,7 +40,7 @@ const showBigPicture = ({
   const likesCount = bigPicture.querySelector('.likes-count');
 
   img.src = url;
-  socialCaption.alt = description;
+  socialCaption.textContent = description;
   socialComment.textContent = comments.length;
   likesCount.textContent = likes;
 
