@@ -1,3 +1,7 @@
+import {
+  isEscKeyDown
+} from '../utils/is-esc-key-down.js';
+
 const body = document.querySelector('body');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
@@ -33,7 +37,7 @@ function onBodyClick(evt) {
 }
 
 function onEscDown(evt) {
-  if (evt.key === 'Escape') {
+  if (isEscKeyDown(evt)) {
     evt.preventDefault();
     evt.stopPropagation();
     hideMessage();
